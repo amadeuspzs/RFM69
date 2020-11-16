@@ -141,6 +141,8 @@
 #elif defined(ESP32)
   #define RF69_IRQ_PIN          2
   #define RF69_SPI_CS           5
+#elif defined(__AVR_ATtiny84__)
+  #define RF69_IRQ_PIN          7 // because we need pin 2 for RX serial
 #else
   #define RF69_IRQ_PIN          2
 #endif
