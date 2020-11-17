@@ -1,4 +1,10 @@
 # RFM69 Library
+
+**Modified to work with ATTiny84:**
+
+1. Change IRQ to pin 8 (PCINT10/IN0/OC0A/CKOUT) PB2 aka pysical pin 6.
+2. Remove lowpower functionality
+
 [![Build Status](https://travis-ci.org/LowPowerLab/RFM69.svg)](https://travis-ci.org/LowPowerLab/RFM69)
 [![GitHub release](https://img.shields.io/github/release/LowPowerLab/RFM69.svg)](https://github.com/LowPowerLab/RFM69)
 [![GitHub issues](https://img.shields.io/github/issues/LowPowerLab/RFM69.svg)](https://github.com/LowPowerLab/RFM69/issues)
