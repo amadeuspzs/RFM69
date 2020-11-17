@@ -3,7 +3,8 @@
 **Modified to work with ATTiny84:**
 
 1. Change IRQ to pin 8 (PCINT10/IN0/OC0A/CKOUT) PB2 aka pysical pin 6.
-2. Remove lowpower functionality
+2. Remove lowpower references/functionality
+3. [Working sketch](https://github.com/amadeuspzs/rfm69-pi-avr/blob/master/node-avr/test/test.ino)
 
 [![Build Status](https://travis-ci.org/LowPowerLab/RFM69.svg)](https://travis-ci.org/LowPowerLab/RFM69)
 [![GitHub release](https://img.shields.io/github/release/LowPowerLab/RFM69.svg)](https://github.com/LowPowerLab/RFM69)
