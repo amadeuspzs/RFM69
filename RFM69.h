@@ -5,19 +5,19 @@
 // **********************************************************************************
 // License
 // **********************************************************************************
-// This program is free software; you can redistribute it 
-// and/or modify it under the terms of the GNU General    
-// Public License as published by the Free Software       
-// Foundation; either version 3 of the License, or        
-// (at your option) any later version.                    
-//                                                        
-// This program is distributed in the hope that it will   
-// be useful, but WITHOUT ANY WARRANTY; without even the  
-// implied warranty of MERCHANTABILITY or FITNESS FOR A   
-// PARTICULAR PURPOSE. See the GNU General Public        
-// License for more details.                              
-//                                                        
-// Licence can be viewed at                               
+// This program is free software; you can redistribute it
+// and/or modify it under the terms of the GNU General
+// Public License as published by the Free Software
+// Foundation; either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will
+// be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU General Public
+// License for more details.
+//
+// Licence can be viewed at
 // http://www.gnu.org/licenses/gpl-3.0.txt
 //
 // Please maintain this license information along with authorship
@@ -66,7 +66,7 @@
  #elif defined(__APPLE__) // OSX
   #define RF69_PLATFORM RF69_PLATFORM_UNIX
  #else
-  #error Platform not defined! 	
+  #error Platform not defined!
  #endif
 #endif
 
@@ -87,7 +87,7 @@
    // Arduino Mega, Mega ADK, Mega Pro
    // 2->0, 3->1, 21->2, 20->3, 19->4, 18->5
    #define digitalPinToInterrupt(p) ((p) == 2 ? 0 : ((p) == 3 ? 1 : ((p) >= 18 && (p) <= 21 ? 23 - (p) : NOT_AN_INTERRUPT)))
-  #elif defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) 
+  #elif defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__)
    // Arduino 1284 and 1284P - See Maniacbug and Optiboot
    // 10->0, 11->1, 2->2
    #define digitalPinToInterrupt(p) ((p) == 10 ? 0 : ((p) == 11 ? 1 : ((p) == 2 ? 2 : NOT_AN_INTERRUPT)))
@@ -141,6 +141,8 @@
 #elif defined(ESP32)
   #define RF69_IRQ_PIN          2
   #define RF69_SPI_CS           5
+#elif defined(__AVR_ATtiny84__)
+  #define RF69_IRQ_PIN          8 // INT0 because we need pin 2 for RX serial
 #else
   #define RF69_IRQ_PIN          2
 #endif
@@ -220,7 +222,7 @@ class RFM69 {
     //void promiscuous(bool onOff=true); //replaced with spyMode()
     virtual void setHighPower(bool onOFF=true); // has to be called after initialize() for RFM69HW
     virtual void setPowerLevel(uint8_t level); // reduce/increase transmit power level
-    uint8_t getPowerLevel(); // get powerLevel	
+    uint8_t getPowerLevel(); // get powerLevel
     void sleep();
     uint8_t readTemperature(uint8_t calFactor=0); // get CMOS temperature (8bit)
     void rcCalibration(); // calibrate the internal RC oscillator for use in wide temperature variations - see datasheet section [4.3.5. RC Timer Accuracy]
@@ -232,7 +234,7 @@ class RFM69 {
     void readAllRegsCompact();
 
     // ListenMode sleep/timer
-    void listenModeSleep(uint16_t millisInterval);
+    // void listenModeSleep(uint16_t millisInterval);
 
   protected:
     static void isr0();
@@ -243,8 +245,8 @@ class RFM69 {
 
     // for ListenMode sleep/timer
     static void delayIrq();
-    void endListenModeSleep();
-   
+    // void endListenModeSleep();
+
     uint8_t _slaveSelectPin;
     uint8_t _interruptPin;
     uint8_t _interruptNum;
@@ -270,17 +272,17 @@ class RFM69 {
 #if defined(RF69_LISTENMODE_ENABLE)
   static RFM69* selfPointer;
   //=============================================================================
-  //                     ListenMode specific declarations  
+  //                     ListenMode specific declarations
   //=============================================================================
   public:
     // When we receive a packet in listen mode, this is the time left in the sender's burst.
     // You need to wait at least this long before trying to reply.
     static volatile uint16_t RF69_LISTEN_BURST_REMAINING_MS;
-    
+
     void listenModeStart(void);
     void listenModeEnd(void);
     void listenModeHighSpeed(bool highSpeed) { _isHighSpeed = highSpeed; }
-    
+
     // rx and idle duration in microseconds
     bool listenModeSetDurations(uint32_t& rxDuration, uint32_t& idleDuration);
 
